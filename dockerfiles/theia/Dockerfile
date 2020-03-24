@@ -41,8 +41,6 @@ ADD https://${GITHUB_TOKEN}:x-oauth-basic@api.github.com/repos/${THEIA_GITHUB_RE
 # Generate che-theia
 
 #{INCLUDE:docker/${BUILD_IMAGE_TARGET}/builder-cdn-prefixes.dockerfile}
-ARG CDN_PREFIX=""
-ARG MONACO_CDN_PREFIX=""
 WORKDIR ${HOME}/theia-source-code
 
 # Add che-theia repository content
