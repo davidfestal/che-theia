@@ -7,19 +7,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  **********************************************************************/
-import { interfaces } from 'inversify';
+import { inject, injectable  } from 'inversify';
 import { EnvVariablesServer } from '@theia/core/lib/common/env-variables';
 import { CheApiService } from '../common/che-protocol';
 
+@injectable()
 export class OauthUtils {
+
+    @inject(EnvVariablesServer)
     private readonly envVariableServer: EnvVariablesServer;
-    private apiUrl: string;
-    private machineToken: string | undefined;
+    @inject(CheApiService)
     private readonly cheApiService: CheApiService;
 
-    constructor(container: interfaces.Container) {
-        this.envVariableServer = container.get(EnvVariablesServer);
-        this.cheApiService = container.get(CheApiService);
+    private apiUrl: string;
+    private machineToken: string | undefined;
+
+    constructor() {
         this.envVariableServer.getValue('CHE_API').then(variable => {
             if (variable && variable.value) {
                 this.apiUrl = variable.value;
